@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="Durga face logo">
+  <g fill="none" stroke="#111114" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="10" d="M160 24v126M160 42l-13 47q-3 16 13 25 16-9 13-25zM160 57l-22-29M160 57l22-29M160 106l-29-24M160 106l29-24"/>
+    <path stroke-width="13" d="M153 145C118 92 71 74 18 73c35 34 79 53 132 57M167 145c35-53 82-71 135-72-35 34-79 53-132 57"/>
+    <path fill="#111114" stroke-width="6" d="M28 105c31 2 63 15 94 42-15 20-38 25-59 12-20-12-31-31-35-54zM292 105c-31 2-63 15-94 42 15 20 38 25 59 12 20-12 31-31 35-54z"/>
+    <path stroke-width="6" d="M153 146c8 36 9 67 8 101M167 146c-8 36-9 67-8 101"/>
+    <path stroke="#d92739" stroke-width="8" fill="#d92739" d="M160 159a9 9 0 1 0 0 .1z"/>
+    <path stroke="#d92739" stroke-width="7" d="M159 243c-8 19-25 22-36 10-11-12-3-24 10-24M161 243c8 19 25 22 36 10 11-12 3-24-10-24M196 228c25-20 54-2 53 25-1 30-35 49-62 27"/>
+  </g>
+</svg>

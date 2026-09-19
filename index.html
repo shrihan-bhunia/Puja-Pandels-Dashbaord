@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Durga Puja Pandal Map</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="hero-bar">
+      <div class="hero-art durga-face" aria-label="Durga face logo"><img src="durga-logo.jpg?v=20260919" alt="Durga face logo"><span class="face-crown"></span><span class="face-eyes"></span><span class="face-bindi"></span></div>
+      <div class="hero-copy"><span class="hero-kicker">DURGA PUJA · GHATAL</span><h1>Pandal Yatra</h1><p>Map the Celebration. Discover the Culture.</p></div>
+      <div class="hero-skyline" aria-hidden="true">✦　♢　✦　♢　✦</div>
+      <div class="hero-credit">Developed by <strong>Shrihan Bhunia</strong></div>
+    </header>
+    <div class="workspace">
+      <nav class="nav-rail" aria-label="Main navigation">
+        <a class="nav-item active" href="#top"><span>⌂</span>Home</a>
+        <a class="nav-item" href="#map"><span>▣</span>Map</a>
+        <button class="nav-item add-poi-button" id="open-add-poi" type="button"><span>＋</span>Add POI</button>
+        <a class="nav-item" href="#about"><span>i</span>About</a>
+        <div class="nav-credit">Developed by<br><strong>Shrihan Bhunia</strong></div>
+      </nav>
+      <aside class="filter-panel" id="top">
+        <section class="search-block">
+          <h2>⌕ &nbsp;Search Pandal</h2>
+          <div class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Search by name or theme..."></div>
+        </section>
+        <section class="theme-block">
+          <h2>⚑ &nbsp;Theme Filter</h2>
+          <div class="theme-chips" id="theme-chips"><button class="chip selected" data-theme="all">All</button></div>
+          <select id="theme-filter" aria-label="Theme filter"><option value="all">All themes</option></select>
+        </section>
+        <section class="community-panel" id="community">
+          <span class="data-kicker">COMMUNITY VOICE</span>
+          <h2>Share your thoughts</h2>
+          <form id="comment-form">
+            <input id="comment-name" name="commentName" placeholder="Your name (optional)">
+            <textarea id="comment-text" name="commentText" rows="3" required placeholder="Tell us about a pandal..."></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
+          <div id="comments-list"></div>
+        </section>
+      </aside>
+      <section class="content-area">
+        <div class="map-panel" id="map-section">
+          <div id="map" aria-label="Interactive map of Durga Puja pandals"></div>
+          <div class="map-overlay"><span class="live-dot"></span><div><strong>Live field map</strong><small>Explore the puja circuit</small></div></div>
+          <div class="map-note">© OpenStreetMap contributors</div>
+        </div>
+        <section class="data-panel" id="pandal-data">
+          <div class="data-header"><div><span class="data-kicker">FIELD DIRECTORY</span><h2>Pandal Data</h2></div><div class="view-toggle"><button class="status-filter active" data-status-filter="all" type="button">All</button><button class="status-filter" data-status-filter="completed" type="button">Completed</button><button class="status-filter" data-status-filter="pending" type="button">Pending</button><button class="view-button" onclick="document.querySelector('#map-section').scrollIntoView({ behavior: 'smooth' })">▧ &nbsp;Map View</button></div></div>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Puja Organizer</th><th>Theme Name</th><th>Location</th><th>Coordinates</th><th>Landmark</th><th>Visit Status</th></tr></thead><tbody id="pandal-table-body"></tbody></table></div>
+          <p id="status" class="status">Showing supplied CSV data</p>
+        </section>
+        <section class="about-panel" id="about">
+          <span class="data-kicker">ABOUT THE PLATFORM</span>
+          <h2>About Pandal Yatra</h2>
+          <p><strong>Pandal Yatra</strong> is an interactive GIS-based web mapping platform designed to help people discover and explore Durga Puja pandals through an easy-to-use digital map.</p>
+          <p>The platform combines <strong>Geographic Information System (GIS) technology, interactive web mapping, and spatial data</strong> to visualize pandal locations and important information such as name, theme, address, and area.</p>
+          <p>Users can search for pandals, explore their locations on the map, filter them by theme, and view detailed information through the interactive map and data table.</p>
+          <h3>Community Contribution</h3>
+          <p>Pandal Yatra also allows users to <strong>suggest new pandals</strong> that are not currently available on the map. Submitted information can be reviewed and verified before being added to the official dataset. This helps keep the map updated and encourages community participation.</p>
+          <h3>Our Vision</h3>
+          <p>Our goal is to bring <strong>tradition and technology together</strong> by creating a digital platform where people can easily discover Durga Puja celebrations while exploring the cultural landscape through GIS.</p>
+          <p class="about-tagline">Map the Celebration. Discover the Culture.</p>
+        </section>
+      </section>
+    </div>
+  </main>
+  <div class="modal-backdrop" id="poi-modal" hidden>
+    <form class="poi-modal" id="poi-form">
+      <button class="modal-close" id="close-add-poi" type="button" aria-label="Close">×</button>
+      <span class="data-kicker">NEW MAP LOCATION</span>
+      <h2>Add a Pandal POI</h2>
+      <p class="modal-help">Click the map first to choose a location, or enter coordinates below.</p>
+      <label>Puja Organizer<input name="name" required placeholder="e.g. Keshpur Sarbojanin"></label>
+      <label>Theme Name<input name="theme" placeholder="e.g. Traditional"></label>
+      <label>Address / Landmark<input name="address" placeholder="e.g. Near Keshpur bus stand"></label>
+      <label>Google Maps Location Link<input id="poi-map-link" name="mapLink" type="url" placeholder="Paste a Google Maps link"></label>
+      <div class="coordinate-fields"><label>Latitude<input id="poi-lat" name="latitude" type="number" step="any" required></label><label>Longitude<input id="poi-lon" name="longitude" type="number" step="any" required></label></div>
+      <div class="modal-actions"><button class="cancel-button" id="cancel-add-poi" type="button">Cancel</button><button class="save-button" type="submit">Add to Map</button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop" id="status-modal" hidden>
+    <section class="status-modal-card" role="dialog" aria-modal="true" aria-labelledby="status-title">
+      <button class="modal-close" id="close-status-modal" type="button" aria-label="Close">×</button>
+      <span class="data-kicker">VISIT TRACKER</span>
+      <h2 id="status-title">Update Visit Status</h2>
+      <p class="modal-help">Choose whether this pandal is completed or still pending.</p>
+      <div class="status-choice"><button class="status-option completed" data-choice="completed" type="button">● &nbsp;Completed</button><button class="status-option pending" data-choice="pending" type="button">● &nbsp;Pending</button></div>
+    </section>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="data.js?v=20260919"></script>
+  <script src="app.js?v=20260919"></script>
+</body>
+</html>
